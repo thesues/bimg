@@ -398,12 +398,13 @@ vips_watermark(VipsImage *in, VipsImage **out, WatermarkTextOptions *to, Waterma
 			NULL) ||
 		vips_linear1(t[1], &t[2], o->Opacity, 0.0, NULL) ||
 		vips_cast(t[2], &t[3], VIPS_FORMAT_UCHAR, NULL) ||
-		vips_embed(t[3], &t[4], 100, 100, t[3]->Xsize + o->Margin, t[3]->Ysize + o->Margin, NULL)
+		vips_embed(t[3], &t[4], 0, 0, t[3]->Xsize + o->Margin, t[3]->Ysize + o->Margin, NULL)
 		) {
 		g_object_unref(base);
 		return 1;
 	}
 
+        VipsImage  * mask;
 	// Replicate if necessary
 	if (o->NoReplicate != 1) {
 		VipsImage *cache = vips_image_new();
@@ -414,6 +415,18 @@ vips_watermark(VipsImage *in, VipsImage **out, WatermarkTextOptions *to, Waterma
 		}
 		g_object_unref(t[4]);
 		t[4] = cache;
+	} else {
+		// position the mask
+		VipsImage * temp = vips_image_new();
+		int xoffset = (o->Xoffset > 0)?o->Xoffset:(t[0]->Xsize - t[4]->Xsize + o->Xoffset);
+		int yoffset = (o->Xoffset > 0)?o->Xoffset:(t[0]->Ysize - t[4]->Ysize + o->Yoffset);
+		if (vips_embed(t[4],&temp, xoffset, yoffset, t[0]->Xsize, t[0]->Ysize, NULL)) {
+			g_object_unref(temp);
+		       	g_object_unref(base);
+			return 1;
+		}
+		g_object_unref(t[4]);
+		t[4] = temp;
 	}
 
 	// Make the constant image to paint the text with.
