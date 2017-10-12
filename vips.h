@@ -44,6 +44,8 @@ typedef struct {
 	int    NoReplicate;
 	float  Opacity;
 	double Background[3];
+	int    Xoffset;
+	int    Yoffset;
 } WatermarkOptions;
 
 typedef struct {
