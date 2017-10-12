@@ -155,6 +155,8 @@ type Watermark struct {
 	Text        string
 	Font        string
 	Background  Color
+	Xoffset     int
+	Yoffset     int
 }
 
 // WatermarkImage represents the image-based watermark supported options.
