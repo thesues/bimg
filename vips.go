@@ -65,6 +65,8 @@ type vipsWatermarkOptions struct {
 	NoReplicate C.int
 	Opacity     C.float
 	Background  [3]C.double
+	Xoffset     C.int
+	Yoffset     C.int
 }
 
 type vipsWatermarkImageOptions struct {
