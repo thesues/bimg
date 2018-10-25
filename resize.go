@@ -29,7 +29,7 @@ func Resize(buf []byte, o Options) ([]byte, error) {
 		return nil, errors.New("Unsupported image output type")
 	}
 
-	debug("Options: %#v", o)
+	//debug("Options: %#v", o)
 
 	// Auto rotate image based on EXIF orientation header
 	image, rotated, err := rotateAndFlipImage(image, o)
@@ -214,8 +214,8 @@ func transformImage(image *C.VipsImage, o Options, shrink int, residual float64)
 		return nil, err
 	}
 
-	debug("Transform: shrink=%v, residual=%v, interpolator=%v",
-		shrink, residual, o.Interpolator.String())
+	//debug("Transform: shrink=%v, residual=%v, interpolator=%v",
+	//	shrink, residual, o.Interpolator.String())
 
 	return image, nil
 }
@@ -237,8 +237,8 @@ func applyEffects(image *C.VipsImage, o Options) (*C.VipsImage, error) {
 		}
 	}
 
-	debug("Effects: gaussSigma=%v, gaussMinAmpl=%v, sharpenRadius=%v",
-		o.GaussianBlur.Sigma, o.GaussianBlur.MinAmpl, o.Sharpen.Radius)
+	//debug("Effects: gaussSigma=%v, gaussMinAmpl=%v, sharpenRadius=%v",
+	//	o.GaussianBlur.Sigma, o.GaussianBlur.MinAmpl, o.Sharpen.Radius)
 
 	return image, nil
 }

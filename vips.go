@@ -16,11 +16,11 @@ import (
 	"sync"
 	"unsafe"
 
-	d "github.com/tj/go-debug"
+	//d "github.com/tj/go-debug"
 )
 
 // debug is internally used to
-var debug = d.Debug("bimg")
+//var debug = d.Debug("bimg")
 
 // VipsVersion exposes the current libvips semantic version
 const VipsVersion = string(C.VIPS_VERSION)
